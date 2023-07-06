@@ -1,33 +1,44 @@
 #include <bits/stdc++.h>
 using namespace std;
-int cnt1[10000001], cnt2[10000001];
-typedef long long ll;
-const int MOD = 1e9 + 7;
 
 int main()
 {
     int n;
-    vector<int> v = {1, 2, 3, 4, 5, 6, 7, 8, 9, 10};
-    for (int i = 0; i < v.size(); i++)
+    cin >> n;
+    long long a[n];
+    set<long long> se;
+    for (int i = 0; i < n; i++)
     {
-        cout << v[i] << " ";
+        cin >> a[i];
+        se.insert(a[i]);
     }
-    cout << "\n";
-    v.insert(v.begin() + 2, 1000);
-    for (int i = 0; i < v.size(); i++)
+    long long t, x;
+    cin >> t;
+    while (t--)
     {
-        cout << v[i] << " ";
+        cin >> x;
+        if (se.find(x) != se.end())
+        {
+            cout << "YES\n";
+        }
+        else
+        {
+            cout << "NO\n";
+        }
+        if (se.count(x))
+        {
+            cout << "FOUND\n";
+        }
+        else
+        {
+            cout << "NOT FOUND\n";
+        }
     }
-    cout << "\n";
-    v.erase(v.begin() + 4);
-    for (auto x : v)
+
+    int xoa;
+    cin >> xoa;
+    if (se.count(xoa))
     {
-        cout << x << " ";
-    }
-    cout << "\n";
-    v.resize(5);
-    for (auto x : v)
-    {
-        cout << x << " ";
+        se.erase(xoa);
     }
 }
