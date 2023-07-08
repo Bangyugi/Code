@@ -1,44 +1,38 @@
 #include <bits/stdc++.h>
 using namespace std;
 
+int timMax(int a[], int n)
+{
+    int max_val = INT_MIN;
+    for (int i = 0; i < n; i++)
+    {
+        if (a[i] > max_val)
+        {
+            max_val = a[i];
+        }
+    }
+    return max_val;
+}
+
+void chepMang(int a[], int &n)
+{
+    int temp = timMax(a, n);
+    a[n] = temp;
+    n++;
+}
+
 int main()
 {
     int n;
     cin >> n;
-    long long a[n];
-    set<long long> se;
+    int a[n];
     for (int i = 0; i < n; i++)
     {
         cin >> a[i];
-        se.insert(a[i]);
     }
-    long long t, x;
-    cin >> t;
-    while (t--)
+    chepMang(a, n);
+    for (int i = 0; i < n; i++)
     {
-        cin >> x;
-        if (se.find(x) != se.end())
-        {
-            cout << "YES\n";
-        }
-        else
-        {
-            cout << "NO\n";
-        }
-        if (se.count(x))
-        {
-            cout << "FOUND\n";
-        }
-        else
-        {
-            cout << "NOT FOUND\n";
-        }
-    }
-
-    int xoa;
-    cin >> xoa;
-    if (se.count(xoa))
-    {
-        se.erase(xoa);
+        cout << a[i] << " ";
     }
 }
