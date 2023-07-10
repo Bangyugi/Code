@@ -5,28 +5,39 @@ int main()
 {
     int n;
     cin >> n;
-    int a[n][n];
-    map<int, int> mp;
+    int a[n];
+    set<int> se;
     for (int i = 0; i < n; i++)
     {
-        for (int j = 0; j < n; j++)
-        {
-            cin >> a[i][j];
-            if (mp[a[i][j]] == i)
-                mp[a[i][j]]++;
-        }
+        cin >> a[i];
+        se.insert(a[i]);
     }
-    bool check = false;
-    for (auto it = mp.begin(); it != mp.end(); it++)
+    int q;
+    cin >> q;
+    while (q--)
     {
-        if ((*it).second == n)
+        auto it1 = se.begin();
+        auto it2 = se.end();
+        it2--;
+        int thaoTac, x;
+        cin >> thaoTac;
+        if (thaoTac == 1)
         {
-            cout << (*it).first << " ";
-            check = true;
+            cin >> x;
+            se.insert(x);
         }
-    }
-    if (!check)
-    {
-        cout << "NOT FOUND";
+        if (thaoTac == 2)
+        {
+            cin >> x;
+            se.erase(x);
+        }
+        if (thaoTac == 3)
+        {
+            cout << *it1 << "\n";
+        }
+        if (thaoTac == 4)
+        {
+            cout << *it2 << "\n";
+        }
     }
 }
