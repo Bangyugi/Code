@@ -1,24 +1,39 @@
 #include <bits/stdc++.h>
 using namespace std;
 
-int timMax(int a[], int n)
+bool isprime(int n)
 {
-    int max_val = INT_MIN;
-    for (int i = 0; i < n; i++)
+    if (n < 2)
+        return 0;
+    if (n == 2 || n == 3)
+        return 1;
+    if (n % 2 == 0 || n % 3 == 0)
+        return 0;
+    for (int i = 5; i < sqrt(n); i += 6)
     {
-        if (a[i] > max_val)
-        {
-            max_val = a[i];
-        }
+        if (n % i == 0 || n % (i + 2) == 0)
+            return 0;
     }
-    return max_val;
+    return 1;
 }
 
-void chepMang(int a[], int &n)
+int Lmao(int n)
 {
-    int temp = timMax(a, n);
-    a[n] = temp;
-    n++;
+    int cnt = 0;
+    while (n > 0)
+    {
+        if (isprime(n % 10))
+        {
+            cnt++;
+        }
+        n /= 10;
+    }
+    return cnt;
+}
+
+bool cmp(int a, int b)
+{
+    return Lmao(a) > Lmao(b);
 }
 
 int main()
@@ -30,9 +45,9 @@ int main()
     {
         cin >> a[i];
     }
-    chepMang(a, n);
-    for (int i = 0; i < n; i++)
+    stable_sort(a, a + n, cmp);
+    for (auto x : a)
     {
-        cout << a[i] << " ";
+        cout << x << " ";
     }
 }
