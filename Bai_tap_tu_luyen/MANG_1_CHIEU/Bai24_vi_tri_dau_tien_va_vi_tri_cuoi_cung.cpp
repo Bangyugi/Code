@@ -10,27 +10,20 @@ int main()
     {
         cin >> a[i];
     }
-    int index = -1;
+    int last_val = -1;
+    int first_val = -1;
     bool check = false;
     for (int i = 0; i < n; i++)
     {
-        if (a[i] == x)
+        if (a[i] == x && check == false)
         {
-            if (check == false)
-            {
-                check = true;
-                cout << i + 1 << " ";
-            }
-            else
-                index = i + 1;
+            first_val = i + 1;
+            check = true;
+        }
+        if (a[i] == x && check == true)
+        {
+            last_val = i + 1;
         }
     }
-    if (!check)
-    {
-        cout << -1 << " " << -1;
-    }
-    else
-    {
-        cout << index;
-    }
+    cout << first_val << " " << last_val;
 }
