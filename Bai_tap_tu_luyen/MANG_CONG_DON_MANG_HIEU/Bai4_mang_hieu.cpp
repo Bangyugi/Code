@@ -14,10 +14,11 @@ int main()
     }
     for (int i = 1; i <= n; i++)
     {
-        D[i] = a[i] - a[i-1];
+        D[i] = a[i] - a[i - 1];
     }
     for (int i = 1; i <= n; i++)
     {
         cout << D[i] << " ";
     }
+    
 }

@@ -3,25 +3,46 @@ using namespace std;
 
 int main()
 {
-    int n, k, q;
-
+    int n, k, q, r, l;
     cin >> n >> k >> q;
-    long long a[200000];
-    memset(a, 0, sizeof(a));
+    vector<long long> pos(200001);
+    vector<long long> D;
 
-    long long D[n];
-    D[0] = a[0];
-    for (int i = 1; i < 200000; i++)
+    while (n--)
     {
-        D[i] = a[i] - a[i - 1];
+        cin >> l >> r;
+        pos[l] += 1;
+        pos[r + 1] -= 1;
+    }
+    
+    for (int i = 1; i < 200001; i++)
+    {
+        pos[i] += pos[i - 1];
+    }
+    for (int i = 0; i < 200001; i++)
+    {
+        if (pos[i] >= k)
+        {
+            pos[i] = 1;
+        }
+        else
+        {
+            pos[i] = 0;
+        }
+    }
+    for (int i = 1; i < 200001; i++)
+    {
+        pos[i] += pos[i - 1];
     }
 
-    int l, r;
+    // for (int i = 1; i < 10; i++)
+    // {
+    //     cout << pos[i] << " ";
+    // }
+    // cout << endl;
     while (q--)
     {
         cin >> l >> r;
-        D[l] += k;
-        D[r + 1] -= k;
+        cout << pos[r] - pos[l - 1] << endl;
     }
-
 }
