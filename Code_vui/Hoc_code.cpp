@@ -3,11 +3,10 @@ using namespace std;
 
 int main()
 {
-    int a, b;
-    cout << "Hello world\n";
-    cout << "Nhap a:";
-    cin >> a;
-    cout << "Nhap b:";
-    cin >> b;
-    cout << "Tong a + b = " << a + b << endl;
+    int n;
+    cin >> n;
+    int m;
+    cin >> m;
+    cout << (double)n / m << endl;
+    cout << round((double)n / m) << endl;
 }
