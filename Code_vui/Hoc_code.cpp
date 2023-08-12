@@ -1,60 +1,38 @@
-#include <bits/stdc++.h>
+#include <iostream>
+#include <vector>
+#include <string>
+#include <algorithm>
+#include <climits>
+
 using namespace std;
 
-int freq[27], n;
-
-int solve(int x)
-{
-    int cnt = 0, max_val = 0;
-    for (int i = 0; i < 27; i++)
-    {
-        if (cnt == n)
-            break;
-        if (x <= freq[i])
-        {
-            cnt += x;
-        }
-        else
-        {
-            cnt = cnt + freq[i] + (x - freq[i]);
-            max_val += (x - freq[i]);
-        }
-    }
-    if (cnt == n)
-        return max_val;
-    else
-        return INT_MAX;
-}
-
-void sol(string s)
-{
-    n = s.size();
-    memset(freq, 0, sizeof freq);
-    for (auto x : s)
-    {
-        freq[x - 'a']++;
-    }
-    sort(freq, freq + 27, greater<>());
-    int ans = INT_MAX;
-    for (int i = 1; i <= sqrt(n); i++)
-    {
-        if (n % i == 0)
-        {
-            ans = min({ans, solve(i), solve(n / i)});
-        }
-    }
-    cout << ans << endl;
-}
-
-int main()
-{
+int main() {
     int t;
     cin >> t;
-    cin.ignore();
-    while (t--)
-    {
+
+    while (t--) {
+        int n, a, b;
+        cin >> n >> a >> b;
+
         string s;
-        getline(cin, s);
-        sol(s);
+        cin >> s;
+
+        vector<int> dp(n + 1, INT_MAX);
+        dp[0] = b; // Cost to convert empty string to regular bracket sequence
+
+        for (int i = 1; i <= n; ++i) {
+            dp[i] = min(dp[i], dp[i - 1] + a); // Cost to remove character
+            int balance = 0;
+            for (int j = i - 1; j >= 0; --j) {
+                balance += (s[j] == '(' ? 1 : -1);
+                if (balance < 0) {
+                    dp[i] = min(dp[i], dp[j] + b); // Cost to move character
+                }
+            }
+        }
+
+        cout << dp[n] << endl;
     }
+
+    return 0;
 }
