@@ -51,18 +51,30 @@ void sol(string s, int a, int b)
             }
         }
     }
-    cout << s << endl;
+    // cout << s << endl;
+    stack<char> x;
     for (int i = 0; i < s.size(); i++)
     {
         if (s[i] == '(')
         {
-            break;
+            x.push('(');
+        }
+        else
+        {
+            if (x.empty())
+            {
+                costa = 2 * a;
+                costb = b;
+                total += min(costa, costb);
+            }
+            else
+            {
+                x.pop();
+            }
         }
         cnt++;
     }
-    costa = cnt * 2 * a;
-    costb = cnt * b;
-    total += min(costa, costb);
+
     cout << total << endl;
 }
 
