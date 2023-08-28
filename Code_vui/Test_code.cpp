@@ -1,28 +1,32 @@
 #include <bits/stdc++.h>
 using namespace std;
 
-vector<long long> adj[100001];
-long long c[100001];
-long long p[100001];
-long long res[100001];
+vector<long long> adj[200001];
+long long c[200001];
+long long p[200001];
+long long res[200001];
+bool visited[200001];
 long long n, k;
 
 long long DFS(long long x)
 {
-    long long res = 0;
+    visited[x] = true;
     if (adj[x].empty())
     {
-        res = c[x];
+        res[x] = c[x];
     }
     else
     {
         for (auto it : adj[x])
         {
-            res += DFS(it);
+            if (!visited[it])
+                res[x] += DFS(it);
+            else
+                res[x] += res[it];
         }
-        res = min(res, c[x]);
+        res[x] = min(res[x], c[x]);
     }
-    return res;
+    return res[x];
 }
 
 signed main()
@@ -33,13 +37,10 @@ signed main()
     cin >> t;
     while (t--)
     {
-
-        // long long c[100001];
-        // long long p[100001];
-        // long long res[100001];
         memset(c, 0, sizeof(c));
         memset(res, 0, sizeof(res));
         memset(p, 0, sizeof(p));
+        memset(visited, 0, sizeof(visited));
         for (long long i = 1; i <= n; i++)
         {
             adj[i].clear();
@@ -69,7 +70,14 @@ signed main()
         // cout << "Res: ";
         for (long long i = 1; i <= n; i++)
         {
-            cout << DFS(i) << " ";
+            if (!visited[i])
+            {
+                res[i] = DFS(i);
+            }
+        }
+        for (long long i = 1; i <= n; i++)
+        {
+            cout << res[i] << " ";
         }
         cout << endl;
     }
