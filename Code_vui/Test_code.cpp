@@ -1,84 +1,40 @@
 #include <bits/stdc++.h>
 using namespace std;
+#define el cout << "/n"
+#define f0(i, n) for (int i = 0; i < n; i++)
+#define f1(i, n) for (int i = 1; i <= n; i++)
+#define NAME "bai1"
+// Số test kiểm tra
+const int NTEST = 1000;
 
-vector<long long> adj[200001];
-long long c[200001];
-long long p[200001];
-long long res[200001];
-bool visited[200001];
-long long n, k;
-
-long long DFS(long long x)
+mt19937 rd(chrono::steady_clock::now().time_since_epoch().count());
+// Viết lại hàm random để sử dụng cho thuận tiện. Hàm random này sinh ngẫu nhiên số trong phạm vi long long, số sinh ra >= l và <= h
+long long Rand(long long l, long long h)
 {
-    visited[x] = true;
-    if (adj[x].empty())
-    {
-        res[x] = c[x];
-    }
-    else
-    {
-        for (auto it : adj[x])
-        {
-            if (!visited[it])
-                res[x] += DFS(it);
-            else
-                res[x] += res[it];
-        }
-        res[x] = min(res[x], c[x]);
-    }
-    return res[x];
+    return l + rd() * 1ll * rd() % (h - l + 1);
+}
+void makeTest()
+{
+    ofstream cout(NAME ".inp");
+    int a = Rand(1, 2e9), b = Rand(1, 2e9);
+    cout << a << " " << b;
 }
 
-signed main()
+int main()
 {
-    ios_base::sync_with_stdio(0);
-    cin.tie(NULL);
-    long long t;
-    cin >> t;
-    while (t--)
+    srand(time(NULL));
+    for (int iTest = 1; iTest <= NTEST; iTest++)
     {
-        memset(c, 0, sizeof(c));
-        memset(res, 0, sizeof(res));
-        memset(p, 0, sizeof(p));
-        memset(visited, 0, sizeof(visited));
-        for (long long i = 1; i <= n; i++)
+        makeTest();
+        system(NAME "_trau.exe");
+        system(NAME ".exe");
+        // Nếu dùng linux thì thay fc bằng diff
+        if (system("fc " NAME ".out " NAME ".ans") != 0)
         {
-            adj[i].clear();
+            cout << "Test " << iTest << ": WRONG!\n";
+            return 0;
         }
-        cin >> n >> k;
-        for (long long i = 1; i <= n; i++)
-        {
-            cin >> c[i];
-        }
-        for (long long i = 1; i <= k; i++)
-        {
-            cin >> p[i];
-            c[p[i]] = 0;
-        }
-        cin.ignore();
-        for (long long i = 1; i <= n; i++)
-        {
-            long long m;
-            cin >> m;
-            long long x;
-            while (m--)
-            {
-                cin >> x;
-                adj[i].push_back(x);
-            }
-        }
-        // cout << "Res: ";
-        for (long long i = 1; i <= n; i++)
-        {
-            if (!visited[i])
-            {
-                res[i] = DFS(i);
-            }
-        }
-        for (long long i = 1; i <= n; i++)
-        {
-            cout << res[i] << " ";
-        }
-        cout << endl;
+        cout << "Test " << iTest << ": CORRECT!\n";
     }
+    return 0;
 }
