@@ -3,7 +3,6 @@ using namespace std;
 
 bool final = 0;
 
-mt19937 rd(chrono::steady_clock::now().time_since_epoch().count());
 
 void sinh(int n, int k, int a[])
 {
@@ -29,7 +28,6 @@ void sinh(int n, int k, int a[])
 int main()
 {
     int n, k;
-    n = 8, k = 3;
     int a[k + 1], b[k + 1];
     for (int i = 1; i <= k; i++)
     {

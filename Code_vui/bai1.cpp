@@ -5,7 +5,7 @@ int main()
 {
     freopen("bai1.inp", "r", stdin);
     freopen("bai1.out", "w", stdout);
-    long long a, b;
+    long a, b;
     cin >> a >> b;
     cout << a + b;
 }
