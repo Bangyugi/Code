@@ -16,8 +16,32 @@ long long Rand(long long l, long long h)
 void makeTest()
 {
     ofstream cout(NAME ".inp");
-    int a = Rand(1, 2e9), b = Rand(1, 2e9);
-    cout << a << " " << b;
+    int n, m, k;
+    n = m = k = rand() % 10000 + 1;
+    cout << n << " " << m << " " << k << endl;
+    int a[n];
+    for (int i = 0; i < n; i++)
+    {
+        a[i] = rand() % 10000;
+        cout << a[i] << " ";
+    }
+    cout << endl;
+    // int b[m];
+    while (m--)
+    {
+        int l, r, d;
+        // cin >> l >> r >> d;
+        l = r = rand() % n + 1;
+        d = rand() % 10000;
+        cout << l << " " << r << " " << d << endl;
+    }
+    while (k--)
+    {
+        int x, y;
+        // cin >> x >> y;
+        x = y = rand() % m + 1;
+        cout << x << " " << y << endl;
+    }
 }
 
 int main()

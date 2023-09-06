@@ -1,31 +1,47 @@
 #include <bits/stdc++.h>
 using namespace std;
-typedef long long ll;
-const int MOD = 1e9 + 7;
 
 int main()
 {
-    int n ; cin >> n;
-    int a[n + 1];
-    int b[n + 1];
-    set<int>se; vector<int>v;
-    for(int i = 1 ; i <= n ;i++)
+    long long n, m, r, l, k, d;
+    cin >> n >> m >> k;
+    long long a[n + 1];
+    for (long long i = 1; i <= n; i++)
     {
-        cin >> b[i];
-        se.insert(b[i]);
+        cin >> a[i];
     }
-    for(auto x : se) v.push_back(x);
-    for(int i = 1 ; i <= v.size() ;i++)
+    long long D[n + 1];
+    a[0] = 0;
+    for (long long i = 1; i <= n; i++)
     {
-        a[i] = v.size() - i + 1;
+        D[i] = a[i] - a[i - 1];
+        // cout << D[i] << " ";
     }
-    do
+    // cout << endl;
+    vector<long long> thaoTac[m + 1];
+    for (long long i = 1; i <= m; i++)
     {
-        for(int i = 1 ; i <= v.size() ; i++)
+        cin >> l >> r >> d;
+        thaoTac[i].push_back(l);
+        thaoTac[i].push_back(r);
+        thaoTac[i].push_back(d);
+    }
+    while (k--)
+    {
+        cin >> l >> r;
+        for (long long i = l; i <= r; i++)
         {
-            cout << v[a[i] - 1] << " ";
+            D[thaoTac[i][0]] += thaoTac[i][2];
+            D[thaoTac[i][1] + 1] -= thaoTac[i][2];
         }
-        cout << endl;
-    }while(prev_permutation(a + 1 , a + v.size() + 1));
-    return 0;
+    }
+    D[0] = 0;
+    for (long long i = 1; i <= n; i++)
+    {
+        D[i] += D[i - 1];
+    }
+    for (long long i = 1; i <= n; i++)
+    {
+        cout << D[i] << " ";
+    }
 }

@@ -1,52 +1,50 @@
 #include <bits/stdc++.h>
 using namespace std;
-const int MOD = 1e9 + 7;
-typedef long long ll;
-struct node
-{
-    int x, y, z;
-};
+
 int main()
 {
-    ll n, m, k;
+    long long n, m, r, l, k, d;
     cin >> n >> m >> k;
-    vector<ll> a;
-    a.resize(n + 2, 0);
-    vector<ll> b;
-    b.resize(n + 2, 0);
-    for (int i = 1; i <= n; i++)
+    long long a[n + 1];
+    // khởi tạo mảng A gồm n phần tử
+    for (long long i = 1; i <= n; i++)
     {
         cin >> a[i];
-        b[i] = a[i] - a[i - 1];
     }
-    vector<node> v;
-    v.resize(m + 2);
-    for (int i = 1; i <= m; i++)
+    long long D[n + 1];
+    a[0] = 0;
+    // tìm mảng hiệu của mảng A là mảng D
+    for (long long i = 1; i <= n; i++)
     {
-        cin >> v[i].x >> v[i].y >> v[i].z;
+        D[i] = a[i] - a[i - 1];
     }
-    vector<ll> arr;
-    arr.resize(m + 2, 0);
-    for (int i = 1; i <= k; i++)
+    // Khởi tạo dữ liệu M thao tác 
+    vector<long long> thaoTac[m + 1];
+    for (long long i = 1; i <= m; i++)
     {
-        int x, y;
-        cin >> x >> y;
-        arr[x] += 1;
-        arr[y + 1] -= 1;
+        cin >> l >> r >> d;
+        thaoTac[i].push_back(l);
+        thaoTac[i].push_back(r);
+        thaoTac[i].push_back(d);
     }
-    for (int i = 1; i <= m; i++)
+    // Duyệt truy vấn k
+    while (k--)
     {
-        arr[i] += arr[i - 1];
+        cin >> l >> r;
+        for (long long i = l; i <= r; i++)
+        {
+            D[thaoTac[i][0]] += thaoTac[i][2];
+            D[thaoTac[i][1] + 1] -= thaoTac[i][2];
+        }
     }
-    for (int i = 1; i <= m; i++)
+    // Kết quả:
+    D[0] = 0;
+    for (long long i = 1; i <= n; i++)
     {
-        b[v[i].x] += (arr[i] * v[i].z);
-        b[v[i].y + 1] -= (arr[i] * v[i].z);
+        D[i] += D[i - 1];
     }
-    for (int i = 1; i <= n; i++)
+    for (long long i = 1; i <= n; i++)
     {
-        b[i] += b[i - 1];
-        cout << b[i] << " ";
+        cout << D[i] << " ";
     }
-    return 0;
 }
