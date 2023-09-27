@@ -1,47 +1,23 @@
 #include <bits/stdc++.h>
 using namespace std;
-
+typedef long long ll;
+const int MOD = 1e9 + 7;
 int main()
 {
-    long long n, m, r, l, k, d;
-    cin >> n >> m >> k;
-    long long a[n + 1];
-    for (long long i = 1; i <= n; i++)
+    int n ; cin >> n;
+    priority_queue<ll , vector<ll> , greater<ll>>Q;
+    for(int i = 0 ;i < n;i++)
     {
-        cin >> a[i];
+        int x ; cin >> x;
+        Q.push(x);
     }
-    long long D[n + 1];
-    a[0] = 0;
-    for (long long i = 1; i <= n; i++)
+    ll ans = 0;
+    while(Q.size() > 1)
     {
-        D[i] = a[i] - a[i - 1];
-        // cout << D[i] << " ";
+        ll tmp = Q.top(); Q.pop();
+        ll res = Q.top(); Q.pop();
+        Q.push(tmp + res);
+        ans += tmp + res;
     }
-    // cout << endl;
-    vector<long long> thaoTac[m + 1];
-    for (long long i = 1; i <= m; i++)
-    {
-        cin >> l >> r >> d;
-        thaoTac[i].push_back(l);
-        thaoTac[i].push_back(r);
-        thaoTac[i].push_back(d);
-    }
-    while (k--)
-    {
-        cin >> l >> r;
-        for (long long i = l; i <= r; i++)
-        {
-            D[thaoTac[i][0]] += thaoTac[i][2];
-            D[thaoTac[i][1] + 1] -= thaoTac[i][2];
-        }
-    }
-    D[0] = 0;
-    for (long long i = 1; i <= n; i++)
-    {
-        D[i] += D[i - 1];
-    }
-    for (long long i = 1; i <= n; i++)
-    {
-        cout << D[i] << " ";
-    }
+    cout << ans;
 }

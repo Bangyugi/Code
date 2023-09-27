@@ -1,47 +1,17 @@
 #include <bits/stdc++.h>
 using namespace std;
-#define el cout << "/n"
-#define f0(i, n) for (int i = 0; i < n; i++)
-#define f1(i, n) for (int i = 1; i <= n; i++)
-#define NAME "bai1"
+#define NAME "Test"
 // Số test kiểm tra
 const int NTEST = 1000;
 
-mt19937 rd(chrono::steady_clock::now().time_since_epoch().count());
-// Viết lại hàm random để sử dụng cho thuận tiện. Hàm random này sinh ngẫu nhiên số trong phạm vi long long, số sinh ra >= l và <= h
-long long Rand(long long l, long long h)
-{
-    return l + rd() * 1ll * rd() % (h - l + 1);
-}
 void makeTest()
 {
     ofstream cout(NAME ".inp");
-    int n, m, k;
-    n = m = k = rand() % 10000 + 1;
-    cout << n << " " << m << " " << k << endl;
-    int a[n];
-    for (int i = 0; i < n; i++)
-    {
-        a[i] = rand() % 10000;
-        cout << a[i] << " ";
-    }
-    cout << endl;
-    // int b[m];
-    while (m--)
-    {
-        int l, r, d;
-        // cin >> l >> r >> d;
-        l = r = rand() % n + 1;
-        d = rand() % 10000;
-        cout << l << " " << r << " " << d << endl;
-    }
-    while (k--)
-    {
-        int x, y;
-        // cin >> x >> y;
-        x = y = rand() % m + 1;
-        cout << x << " " << y << endl;
-    }
+    long long a, b, c;
+    a = rand() % 100 + 1;
+    b = rand() % 100 + 1;
+    c = rand() % 100 + 1;
+    cout << a << " " << b << " " << c;
 }
 
 int main()

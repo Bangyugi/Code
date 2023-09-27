@@ -46,4 +46,5 @@ int main()
 {
     cin >> n;
     backtrack(1);
+    
 }
