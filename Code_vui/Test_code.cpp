@@ -7,11 +7,10 @@ const int NTEST = 1000;
 void makeTest()
 {
     ofstream cout(NAME ".inp");
-    long long a, b, c;
-    a = rand() % 100 + 1;
-    b = rand() % 100 + 1;
-    c = rand() % 100 + 1;
-    cout << a << " " << b << " " << c;
+    int n,k;
+    n=rand()%50+1;
+    k=rand()%50+1;
+    cout<<n<<" "<<k;
 }
 
 int main()

@@ -3,34 +3,36 @@
 using namespace std;
 ll MOD = 1e9 + 7;
 
+bool cmp(pair<int, int> a, pair<int, int> b)
+{
+    return a.second < b.second;
+}
+
 int main()
 {
+    ios_base::sync_with_stdio(NULL);
+    cin.tie(0);
+    cout.tie(0);
     int n;
     cin >> n;
-    pair<int, int> a[n];
-    for (int i = 0; i < n; i++)
+    vector<pair<int, int>> v;
+    while (n--)
     {
-        cin >> a[i].first >> a[i].second;
+        int x, y;
+        cin >> x >> y;
+        v.push_back({x, y});
     }
-    sort(a, a + n);
-
-    int ans = 0;
-    for (int i = 0; i < n; i++)
+    sort(v.begin(), v.end(), cmp);
+    int t = v[0].second;
+    int cnt = 1;
+    for (int i = 1; i < (int)v.size(); i++)
     {
-        int cnt = 1;
-        int end = a[i].second;
-        int start;
-        for (int j = i + 1; j < n; j++)
+        if (v[i].first > t)
         {
-            start = a[j].first;
-            if (start > end)
-            {
-                end = a[j].second;
-                cnt++;
-                ans = max(ans, cnt);
-            }
+            cnt++;
+            t = v[i].second;
         }
     }
-    cout << ans;
+    cout << cnt;
     return 0;
 }
