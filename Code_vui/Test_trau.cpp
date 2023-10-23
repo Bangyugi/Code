@@ -1,79 +1,53 @@
 #include <bits/stdc++.h>
-#define ll long long
 using namespace std;
-
-int isprime[1001];
-int sum = 0;
-vector<vector<int>> v;
-vector<int> t;
-
-void sang()
+const int maxn = 1001;
+vector<int>v[maxn];
+bool ok[maxn];
+int parent[maxn];
+void DFS(int s)
 {
-    for (int i = 2; i <= 1000; i++)
+    ok[s] = true;
+    for(int x : v[s])
     {
-        isprime[i] = 1;
-    }
-    for (int i = 1; i <= sqrt(1000); i++)
-    {
-        if (isprime[i])
+        if(!ok[x])
         {
-            for (int j = i * i; j <= 1000; j += i)
-            {
-                isprime[j] = 0;
-            }
+            parent[x] = s;
+            DFS(x);
         }
     }
 }
-
-void Try(int i, int pos, int n, int k)
+void path(int s , int t)
 {
-    for (int j = pos; j <= n; j++)
+    DFS(s);
+    if(!ok[t])
     {
-        if (isprime[j])
-        {
-            t.push_back(j);
-            sum += j;
-            if (i == k)
-            {
-                if (sum == n)
-                {
-                    v.push_back(t);
-                }
-            }
-            else if (sum < n)
-            {
-                Try(i + 1, j + 1, n, k);
-            }
-            t.pop_back();
-            sum -= j;
-        }
+        cout << -1;
+        return;
     }
+    vector<int>duong;
+    while(s != t)
+    {
+        duong.push_back(t);
+        t = parent[t];
+    }
+    duong.push_back(s);
+    reverse(duong.begin(), duong.end());
+    for(int x : duong) cout << x << " ";
 }
-
 int main()
 {
     freopen("Test.inp","r",stdin);
     freopen("Test.ans","w",stdout);
-    int n, k;
-    cin >> n >> k;
-    sang();
-    Try(1, 1, n, k);
-    if (v.empty())
+    int n , m , s , t ; cin >> n >> m >> s >> t;
+    for(int i = 1 ; i <= m ; i++)
     {
-        cout << "NOT FOUND" << endl;
+        int a , b ; cin >> a >> b;
+        v[a].push_back(b);
+        v[b].push_back(a);
     }
-    else
+    for(int i = 1 ; i <= n ;i++)
     {
-        sort(v.begin(), v.end());
-        for (auto x : v)
-        {
-            cout << x[0];
-            for (int i = 1; i < k; i++)
-            {
-                cout << " + " << x[i];
-            }
-            cout << endl;
-        }
+        sort(v[i].begin(), v[i].end());
     }
-    return 0;
+    path(s , t);
 }
