@@ -2,13 +2,15 @@
 #define ll long long
 using namespace std;
 ll MOD = 1e9 + 7;
+int a[10001][10001];
 bool visited[10001];
 vector<int> path;
 bool check = false;
 
 void DFS(int s, vector<int> adj[], int v)
 {
-    visited[s] = true;  
+    visited[s] = true;
+
     if (s == v)
     {
         check = true;
@@ -29,7 +31,6 @@ void DFS(int s, vector<int> adj[], int v)
                     return;
                 }
             }
-         
         }
 }
 
@@ -38,8 +39,8 @@ int main()
     // ios_base::sync_with_stdio(NULL);
     // cin.tie(0);
     // cout.tie(0);
-    freopen("input.inp", "r", stdin);
-    freopen("output.ans", "w", stdout);
+    // freopen("input.inp", "r", stdin);
+    // freopen("output.ans", "w", stdout);
     vector<int> adj[10001];
     int n, m, s, v;
     cin >> n >> m >> s >> v;
@@ -48,6 +49,7 @@ int main()
         int x, y;
         cin >> x >> y;
         adj[x].push_back(y);
+        adj[y].push_back(x);
     }
     for (int i = 1; i <= n; i++)
     {

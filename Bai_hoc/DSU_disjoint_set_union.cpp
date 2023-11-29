@@ -54,8 +54,6 @@ int main()
     // ios_base::sync_with_stdio(NULL);
     // cin.tie(0);
     // cout.tie(0);
-    // freopen("Test.inp", "r", stdin);
-    // freopen("Test.out", "w", stdout);
     int n, m;
     cin >> n >> m;
     int cnt1 = n;

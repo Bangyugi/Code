@@ -1,53 +1,55 @@
 #include <bits/stdc++.h>
 using namespace std;
-const int maxn = 1001;
-vector<int>v[maxn];
-bool ok[maxn];
-int parent[maxn];
-void DFS(int s)
+typedef long long ll;
+const int maxn = 1e5 + 1;
+struct canh
 {
-    ok[s] = true;
-    for(int x : v[s])
-    {
-        if(!ok[x])
-        {
-            parent[x] = s;
-            DFS(x);
-        }
-    }
-}
-void path(int s , int t)
+    int x, y, w;
+};
+vector<canh> v;
+int res = 1;
+int sz[maxn], parent[maxn];
+
+int find(int u)
 {
-    DFS(s);
-    if(!ok[t])
-    {
-        cout << -1;
-        return;
-    }
-    vector<int>duong;
-    while(s != t)
-    {
-        duong.push_back(t);
-        t = parent[t];
-    }
-    duong.push_back(s);
-    reverse(duong.begin(), duong.end());
-    for(int x : duong) cout << x << " ";
+    if (u == parent[u])
+        return u;
+    return parent[u] = find(parent[u]);
 }
+bool Union(int a, int b)
+{
+    a = find(a);
+    b = find(b);
+    if (a == b)
+        return 0;
+    if (sz[a] < sz[b])
+        swap(a, b);
+    sz[a] += sz[b];
+    parent[b] = a;
+    res = max(res, sz[a]);
+    return 1;
+}
+
 int main()
 {
-    freopen("Test.inp","r",stdin);
-    freopen("Test.ans","w",stdout);
-    int n , m , s , t ; cin >> n >> m >> s >> t;
-    for(int i = 1 ; i <= m ; i++)
+    ios::sync_with_stdio(NULL);
+    cout.tie(NULL);
+    cin.tie(NULL);
+    freopen("Test.inp", "r", stdin);
+    freopen("Test.ans", "w", stdout);
+    int n, m;
+    cin >> n >> m;
+    for (int i = 1; i <= n; i++)
     {
-        int a , b ; cin >> a >> b;
-        v[a].push_back(b);
-        v[b].push_back(a);
+        parent[i] = i;
+        sz[i] = 1;
     }
-    for(int i = 1 ; i <= n ;i++)
+    int ans = n;
+    for (int i = 1; i <= m; i++)
     {
-        sort(v[i].begin(), v[i].end());
+        int a, b;
+        cin >> a >> b;
+        ans -= Union(a, b);
+        cout << ans << " " << res << endl;
     }
-    path(s , t);
 }
